@@ -1,4 +1,5 @@
+import java.util.ArrayList;
 
 public class ForDhundup {
-This is for DD
+ArrayList<String> fakeShit = new ArrayList<>();
 }
