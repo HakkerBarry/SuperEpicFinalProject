@@ -22,6 +22,8 @@ public class Actor extends Sprite implements Attack {
 	private int coolDown;		// Starting cool down value 
 	private double speed;		// The speed at which it moves
 	
+	enum state{ATTACK,IDLE,DEAING}
+	
 	/**
 	 * Construct a new Actor. It needs the info to make the Sprite part of itself.
 	 * @param startingPosition
@@ -127,10 +129,10 @@ public class Actor extends Sprite implements Attack {
 		
 	}
 	
-//	/**
-//	 * An Actor doesn't need to set collision status, but a Zombie can override this.
-//	 * @param other
-//	 */
+	/**
+	 * An Actor doesn't need to set collision status, but a Zombie can override this.
+	 * @param other
+	 */
 	public void setCollisionStatus(Actor other) {
 	}
 	
