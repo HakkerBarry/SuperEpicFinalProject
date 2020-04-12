@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Sprite {
 
-	static private ArrayList<ArrayList<BufferedImage>> images = Instance.getInstance().knight;
+	private ArrayList<ArrayList<BufferedImage>> images;
 	private Point2D.Double position; // Define the upper left corner of where the image is drawn.
 	private Point2D.Double hitbox;   // Define a width and height of the rectangle used for collision.
 	private BufferedImage currentImg;
@@ -27,12 +27,17 @@ public class Sprite {
 	 * @param initHitbox the width and height of the rectangle to be used for collision detection.
 	 * @param img
 	 */
-	public Sprite(Point2D.Double startingPosition, Point2D.Double initHitbox) {
+	public Sprite(Point2D.Double startingPosition, Point2D.Double initHitbox, ArrayList<ArrayList<BufferedImage>> img) {
 		position = startingPosition;
 		hitbox = initHitbox;
+		images = img;
 		currentImg = images.get(0).get(0);
 	}
 
+	protected ArrayList<ArrayList<BufferedImage>> getImages()
+	{
+		return images;
+	}
 	/**
 	 * Get the image at frameNumber. If frameNumber would be out-of-bounds
 	 * then mod it with the number of images.
@@ -125,5 +130,18 @@ public class Sprite {
 		return true;
 	}
 
+	/**
+	 * getter of currentImg
+	 * @return
+	 */
+	public BufferedImage getCurrentImg()
+	{
+		return currentImg;
+	}
+	
+	public void setCurrentIgm(BufferedImage in)
+	{
+		this.currentImg = in;
+	}
 }
 

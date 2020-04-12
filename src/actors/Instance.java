@@ -7,17 +7,29 @@ import java.util.ArrayList;
 public class Instance {
 	
 	static Instance instance = null;
-	static Point2D.Double standardHitBox = new Point2D.Double(200,230);
+	static BufferedImage scene;
+	private Point2D.Double standardHitBox = new Point2D.Double(100,115);
 	
 	public ArrayList<ArrayList<BufferedImage>> knight;
-	public ArrayList<ArrayList<BufferedImage>> Skeleton;
-	public ArrayList<ArrayList<BufferedImage>> Archer;
+	public ArrayList<ArrayList<BufferedImage>> skeleton;
+	public ArrayList<ArrayList<BufferedImage>> archer;
 	
 	private Instance()
 	{
 		knight = Loader.loadKnight();
-		knight = Loader.loadSkeleton();
-		knight = Loader.loadArcher();
+		skeleton = Loader.loadSkeleton();
+		archer = Loader.loadArcher();
+		scene = Loader.loadScene();
+	}
+	
+	public Point2D.Double getHitBox()
+	{
+		return standardHitBox;
+	}
+	
+	public BufferedImage getScene()
+	{
+		return scene;
 	}
 	
 	static public Instance getInstance()

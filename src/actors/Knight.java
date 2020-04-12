@@ -2,23 +2,19 @@ package actors;
 
 import java.awt.Graphics;
 import java.awt.geom.Point2D.Double;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 public class Knight extends Actor {
 	
-	public Knight(Double startingPosition, Double initHitbox, ArrayList<ArrayList<BufferedImage>> imgs) {
-		super(startingPosition, initHitbox);
+	
+	public Knight(Double startingPosition) {
+		super(startingPosition, Instance.getInstance().getHitBox(), Instance.getInstance().knight, 200, 8, 0, 10);
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 	public void draw(Graphics g) {
-		g.drawImage(currentImage, (int)this.getPosition().getX(), (int)this.getPosition().getY(), null);
+		g.drawImage(getCurrentImg(), (int)this.getPosition().getX(), (int)this.getPosition().getY(), 
+				(int)Instance.getInstance().getHitBox().getX(), 
+				(int)Instance.getInstance().getHitBox().getY(), null);
 	}
 
 }

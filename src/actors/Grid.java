@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 public class Grid {
 	
 	private static Point2D.Double startPoint = new Point2D.Double(350,250);
-	private static Point2D.Double cellDimension = new Point2D.Double(200,215);
+	private static Point2D.Double cellDimension = new Point2D.Double(100,115);
 	
 	public static boolean isColliding(Point2D.Double position)
 	{
@@ -25,5 +25,11 @@ public class Grid {
 		return (int)((position.getY()-startPoint.getY())/cellDimension.getY()) 
 				//add the colNum
 				+ (int)((position.getX()-startPoint.getX())/cellDimension.getX());
+	}
+	
+	public static Point2D.Double getCellPosition(int x, int y)
+	{
+		Point2D.Double result = new Point2D.Double(startPoint.getX()+ x*cellDimension.getX(),startPoint.getY()+y*cellDimension.getY());
+		return result;
 	}
 }
