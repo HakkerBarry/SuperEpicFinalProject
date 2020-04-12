@@ -7,17 +7,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import actors.Actor;
+import actors.Grid;
 import actors.Instance;
+import actors.Knight;
 
 
 /**
@@ -33,14 +32,22 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	private Timer tick;
 	static BufferedImage scene;
 	Controller controller;
-	ArrayList<Actor> defender;
+	Actor[][] defender;
 	
+	//test area
+	Knight k1,k2,k3,k4,k5;
+	
+	
+	//
 	public Game()
 	{
 		scene = Instance.getInstance().getScene();
 		setPreferredSize(new Dimension(1440,900));
 		controller = new Controller();
 		tick = new Timer(30,this);
+		
+		defender = new Actor[5][9];
+		
 		tick.start();
 	}
 	
@@ -52,8 +59,6 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		//System.out.println(controller.isMousepressed());
 		repaint();
 	}
 

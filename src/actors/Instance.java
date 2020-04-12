@@ -8,7 +8,7 @@ public class Instance {
 	
 	static Instance instance = null;
 	static BufferedImage scene;
-	static Point2D.Double standardHitBox = new Point2D.Double(200,230);
+	private Point2D.Double standardHitBox = new Point2D.Double(100,115);
 	
 	public ArrayList<ArrayList<BufferedImage>> knight;
 	public ArrayList<ArrayList<BufferedImage>> skeleton;
@@ -22,6 +22,10 @@ public class Instance {
 		scene = Loader.loadScene();
 	}
 	
+	public Point2D.Double getHitBox()
+	{
+		return standardHitBox;
+	}
 	
 	public BufferedImage getScene()
 	{

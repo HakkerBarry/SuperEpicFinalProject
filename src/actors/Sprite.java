@@ -18,7 +18,6 @@ public class Sprite {
 	private Point2D.Double hitbox;   // Define a width and height of the rectangle used for collision.
 	private BufferedImage currentImg;
 	
-	
 	/**
 	 * A sprite is a sequence of images. A new Sprite always has at least one image
 	 * (passed into the constructor).
@@ -35,6 +34,10 @@ public class Sprite {
 		currentImg = images.get(0).get(0);
 	}
 
+	protected ArrayList<ArrayList<BufferedImage>> getImages()
+	{
+		return images;
+	}
 	/**
 	 * Get the image at frameNumber. If frameNumber would be out-of-bounds
 	 * then mod it with the number of images.
@@ -134,6 +137,11 @@ public class Sprite {
 	public BufferedImage getCurrentImg()
 	{
 		return currentImg;
+	}
+	
+	public void setCurrentIgm(BufferedImage in)
+	{
+		this.currentImg = in;
 	}
 }
 
