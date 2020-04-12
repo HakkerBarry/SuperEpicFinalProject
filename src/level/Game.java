@@ -9,11 +9,15 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import actors.Actor;
+import actors.Instance;
 
 
 /**
@@ -27,18 +31,13 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	 * the main tick call the update of ever frame
 	 */
 	private Timer tick;
-	BufferedImage scene;
+	static BufferedImage scene;
 	Controller controller;
+	ArrayList<Actor> defender;
 	
 	public Game()
 	{
-		try {
-			scene = ImageIO.read(new File("assets/Scenes/Scenes.jpg"));
-		}
-		catch(IOException e)
-		{
-			System.out.println("Scene not found");
-		}
+		scene = Instance.getInstance().getScene();
 		setPreferredSize(new Dimension(1440,900));
 		controller = new Controller();
 		tick = new Timer(30,this);

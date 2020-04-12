@@ -3,6 +3,7 @@ package actors;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Actor extends Sprite {
@@ -18,9 +19,15 @@ public class Actor extends Sprite {
 	private int coolDown;		// Starting cool down value 
 	private double speed;		// The speed at which it moves
 	
-	public Actor(Point2D.Double startingPosition, Point2D.Double initHitbox) {
-		super(startingPosition, initHitbox);
+	public Actor(Point2D.Double startingPosition, Point2D.Double initHitbox, ArrayList<ArrayList<BufferedImage>> img, int health, int coolDown, double speed, int attackDamage) {
+		super(startingPosition, initHitbox, img);
 		// TODO Auto-generated constructor stub
+		this.health = health;
+		this.fullHealth = health;
+		this.coolDownCounter = coolDown;
+		this.coolDown = coolDown;
+		this.speed = speed;
+		this.attackDamage = attackDamage;
 	}
 	
 	public double getSpeed() {
