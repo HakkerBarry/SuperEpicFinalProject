@@ -9,5 +9,6 @@ package startCode;
  * other checks to attack this. That would have to be called directly.
  */
 public interface Attack {
+	
 	public void attack(Actor other);
 }
