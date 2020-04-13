@@ -10,7 +10,7 @@ public class Actor extends Sprite implements Attack{
 	
 	private static final int IDLE = 0;
 	private static final int ATTACK = 1;
-	private static final int DEAD = 2;
+	private static final int DEADING = 2;
 
 	public int state;
 	private int health; 		// Current health of an Actor object
@@ -19,6 +19,8 @@ public class Actor extends Sprite implements Attack{
 	private int coolDownCounter;// Current count of the cooldown.
 	private int coolDown;		// Starting cool down value 
 	private double speed;		// The speed at which it moves
+	private static int deadCoolDown = Instance.getInstance().skeleton.get(DEADING).size();
+	private Actor target;
 	
 	public Actor(Point2D.Double startingPosition, Point2D.Double initHitbox, ArrayList<ArrayList<BufferedImage>> img, int health, int coolDown, double speed, int attackDamage) {
 		super(startingPosition, initHitbox, img);
@@ -43,6 +45,14 @@ public class Actor extends Sprite implements Attack{
 	 * Update the internal state of the Actor. This means decrement the cool down counter.
 	 */
 	public void update() {
+		if(state == DEADING)
+		{
+			this.dead();
+		}
+		if(target != null)
+		{
+			this.attack(target);
+		}
 	}
 	
 	/**
@@ -60,17 +70,18 @@ public class Actor extends Sprite implements Attack{
 	}
 	
 	public void changeHealth(int change) {
-		if(state == DEAD)
+		if(state == DEADING)
 			return;
 		health += change;
 		if(health <= 0) {
 			health = 0;
-			state = DEAD;
+			this.coolDownCounter = 0;
+			state = DEADING;
 			}
 	}
 	
 	public boolean isAlive() {
-		return state!=DEAD ;
+		return state!=DEADING ;
 	}
 	
 	/**
@@ -102,7 +113,7 @@ public class Actor extends Sprite implements Attack{
 	
 	@Override
 	public void attack(Actor other) {
-		if(state == DEAD)
+		if(state == DEADING)
 			return;
 		if(state == IDLE)
 		{
@@ -126,10 +137,30 @@ public class Actor extends Sprite implements Attack{
 		}
 	}
 	
+	public boolean dead()
+	{
+		if(coolDownCounter < deadCoolDown-1)
+		{
+			this.setCurrentIgm(this.get(DEADING, coolDownCounter));
+			coolDownCounter++;
+			return false;
+		}
+		else
+		{
+			this.setCurrentIgm(this.get(DEADING, coolDownCounter));
+			return true;
+		}
+	}
+	
 	public void draw(Graphics g) {
 		g.drawImage(getCurrentImg(), (int)this.getPosition().getX(), (int)this.getPosition().getY(), 
 				(int)Instance.getInstance().getHitBox().getX(), 
 				(int)Instance.getInstance().getHitBox().getY(), null);
 		this.drawHealthBar(g);
+	}
+	
+	public void setTarget(Actor other)
+	{
+		this.target = other;
 	}
 }

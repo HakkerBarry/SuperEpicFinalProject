@@ -55,8 +55,14 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 		a1 = new Archer(Grid.getCellPosition(2, 2));
 		s1 = new Skeleton(Grid.getCellPosition(3, 3),3);
 		
+		//k1.setTarget(s1);
+		s1.setTarget(k1);
+		
 		defender = new Actor[5][9];
 		enemies = new ArrayList<>();
+		
+		defender[2][0] = k1;
+		defender[2][1] = s1;
 		
 		tick.start();
 	}
@@ -65,6 +71,8 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	protected void paintComponent(Graphics g)
 	{
 		//Loop each reference in array draw from far to close defender
+		
+		g.drawImage(scene, 0, 0, null);
 		
 		for(int y = 0; y < 5; y++)
 		{
@@ -82,20 +90,11 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 			enemy.update();
 			enemy.draw(g);
 		}
-		g.drawImage(scene, 0, 0, null);
 		
-		k1.draw(g);
-		k2.draw(g);
-		a1.draw(g);
-		s1.draw(g);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		k1.attack(s1);
-		a1.attack(k2);
-		s1.attack(k2);
 		repaint();
 	}
 

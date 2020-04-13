@@ -6,7 +6,7 @@ public class Skeleton extends Actor {
 
 	private int line;
 	public Skeleton(Double startingPosition, int line) {
-		super(startingPosition, Instance.getInstance().getHitBox(), Instance.getInstance().skeleton, 100, 17, 5, 20);
+		super(startingPosition, Instance.getInstance().getHitBox(), Instance.getInstance().skeleton, 100, 17, -1, 20);
 		this.line = line;
 	}
 }
