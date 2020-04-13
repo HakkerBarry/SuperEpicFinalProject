@@ -8,9 +8,10 @@ import java.util.ArrayList;
 
 public class Actor extends Sprite implements Attack{
 	
-	private static final int IDLE = 0;
-	private static final int ATTACK = 1;
-	private static final int DEADING = 2;
+	protected static final int IDLE = 0;
+	protected static final int ATTACK = 1;
+	protected static final int DEADING = 2;
+	protected static final int DEAD = 3;
 
 	public int state;
 	private int health; 		// Current health of an Actor object
@@ -19,17 +20,20 @@ public class Actor extends Sprite implements Attack{
 	private int coolDownCounter;// Current count of the cooldown.
 	private int coolDown;		// Starting cool down value 
 	private double speed;		// The speed at which it moves
-	private static int deadCoolDown = Instance.getInstance().skeleton.get(DEADING).size();
+	private int deadCoolDown;
+	private int idelCoolDown;
 	private Actor target;
 	
-	public Actor(Point2D.Double startingPosition, Point2D.Double initHitbox, ArrayList<ArrayList<BufferedImage>> img, int health, int coolDown, double speed, int attackDamage) {
+	public Actor(Point2D.Double startingPosition, Point2D.Double initHitbox, ArrayList<ArrayList<BufferedImage>> img, int health, int coolDown,int deadCoolDown, int idelCoolDown, double speed, int attackDamage) {
 		super(startingPosition, initHitbox, img);
 		this.health = health;
 		this.fullHealth = health;
-		this.coolDownCounter = coolDown;
+		this.coolDownCounter = 0;
 		this.coolDown = coolDown;
 		this.speed = speed;
 		this.attackDamage = attackDamage;
+		this.deadCoolDown = deadCoolDown;
+		this.idelCoolDown = idelCoolDown;
 		this.state = IDLE;
 	}
 	
@@ -37,8 +41,8 @@ public class Actor extends Sprite implements Attack{
 		return speed;
 	}
 	
-	public void decrementCooldown() {
-		coolDownCounter--;		
+	public void addCooldown() {
+		coolDownCounter++;		
 	}
 	
 	/**
@@ -47,12 +51,19 @@ public class Actor extends Sprite implements Attack{
 	public void update() {
 		if(state == DEADING)
 		{
-			this.dead();
+			this.deading();
 		}
+		
 		if(target != null)
 		{
 			this.attack(target);
 		}
+		
+		if(state == IDLE)
+		{
+			this.idle();
+		}
+		
 	}
 	
 	/**
@@ -66,7 +77,7 @@ public class Actor extends Sprite implements Attack{
 	}
 	
 	public void resetCoolDown() {
-		coolDownCounter = coolDown;
+		coolDownCounter = 0;
 	}
 	
 	public void changeHealth(int change) {
@@ -81,7 +92,7 @@ public class Actor extends Sprite implements Attack{
 	}
 	
 	public boolean isAlive() {
-		return state!=DEADING ;
+		return state!= DEAD ;
 	}
 	
 	/**
@@ -113,8 +124,15 @@ public class Actor extends Sprite implements Attack{
 	
 	@Override
 	public void attack(Actor other) {
-		if(state == DEADING)
+//		if(state == DEADING)
+//			return;
+		if(!other.isAlive())
+		{
+			state = IDLE;
+			target = null;
+			this.coolDownCounter = 0;
 			return;
+		}
 		if(state == IDLE)
 		{
 			state = ATTACK;
@@ -123,32 +141,45 @@ public class Actor extends Sprite implements Attack{
 		}
 		if(state == ATTACK)
 		{
-			if(coolDownCounter == 0) {
-				this.setCurrentIgm(this.get(1, coolDown));
+			if(coolDownCounter == this.coolDown) {//the final frame of attack anime
+				this.setCurrentIgm(this.get(ATTACK, coolDown));
 				other.changeHealth(-attackDamage);
-				decrementCooldown();
+				this.resetCoolDown();
 				state = IDLE;
 				}
-			else if(coolDownCounter > 0)
+			else if(coolDownCounter < this.coolDown)
 			{
-				decrementCooldown();
-				this.setCurrentIgm(this.get(1, coolDown - coolDownCounter));
+				addCooldown();
+				this.setCurrentIgm(this.get(1, coolDownCounter));
 			}
 		}
 	}
 	
-	public boolean dead()
+	public void deading()
 	{
 		if(coolDownCounter < deadCoolDown-1)
 		{
 			this.setCurrentIgm(this.get(DEADING, coolDownCounter));
 			coolDownCounter++;
-			return false;
 		}
 		else
 		{
 			this.setCurrentIgm(this.get(DEADING, coolDownCounter));
-			return true;
+			state = DEAD;
+		}
+	}
+	
+	public void idle()
+	{
+		if(coolDownCounter < idelCoolDown-1)
+		{
+			this.setCurrentIgm(this.get(IDLE, coolDownCounter));
+			coolDownCounter++;
+		}
+		else
+		{
+			this.setCurrentIgm(this.get(IDLE, idelCoolDown));
+			coolDownCounter = 0;
 		}
 	}
 	
@@ -162,5 +193,6 @@ public class Actor extends Sprite implements Attack{
 	public void setTarget(Actor other)
 	{
 		this.target = other;
+		coolDownCounter = 0;
 	}
 }

@@ -6,7 +6,7 @@ public class Knight extends Actor {
 	
 	
 	public Knight(Double startingPosition) {
-		super(startingPosition, Instance.getInstance().getHitBox(), Instance.getInstance().knight, 200, 8, 0, 10);
+		super(startingPosition, Instance.getInstance().getHitBox(), Instance.getInstance().knight, 200, 8, 14, 14, 0, 10);
 	}
 
 	

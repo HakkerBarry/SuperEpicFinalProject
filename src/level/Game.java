@@ -57,6 +57,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 		
 		//k1.setTarget(s1);
 		s1.setTarget(k1);
+		//k1.setTarget(s1);
 		
 		defender = new Actor[5][9];
 		enemies = new ArrayList<>();
@@ -80,6 +81,11 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 			{
 				if(defender[y][x] == null)
 					continue;
+				if(!defender[y][x].isAlive())
+				{
+					defender[y][x] = null;
+					continue;
+				}
 				defender[y][x].update();
 				defender[y][x].draw(g);
 			}
