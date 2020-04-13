@@ -16,6 +16,11 @@ public class Instance {
 	
 	private Instance()
 	{
+		/**
+		 * 0 Idle
+		 * 1 Attack
+		 * 2 Dead
+		 */
 		knight = Loader.loadKnight();
 		skeleton = Loader.loadSkeleton();
 		archer = Loader.loadArcher();

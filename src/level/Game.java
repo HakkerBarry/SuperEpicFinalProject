@@ -14,7 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import actors.Actor;
+import actors.Archer;
+import actors.Grid;
 import actors.Instance;
+import actors.Knight;
+import actors.Skeleton;
 
 
 /**
@@ -33,6 +37,10 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	Actor[][] defender;
 	ArrayList<Actor> enemies;
 	
+	private Knight k1, k2;
+	private Archer a1;
+	private Skeleton s1;
+	
 	/**
 	 * Constructor
 	 */
@@ -42,6 +50,10 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 		setPreferredSize(new Dimension(1440,900));
 		controller = new Controller();
 		tick = new Timer(30,this);
+		k1 = new Knight(Grid.getCellPosition(1, 1));
+		k2 = new Knight(Grid.getCellPosition(1,	0));
+		a1 = new Archer(Grid.getCellPosition(2, 2));
+		s1 = new Skeleton(Grid.getCellPosition(3, 3),3);
 		
 		defender = new Actor[5][9];
 		enemies = new ArrayList<>();
@@ -53,6 +65,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	protected void paintComponent(Graphics g)
 	{
 		//Loop each reference in array draw from far to close defender
+		
 		for(int y = 0; y < 5; y++)
 		{
 			for(int x = 0; x < 9; x++)
@@ -70,10 +83,19 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 			enemy.draw(g);
 		}
 		g.drawImage(scene, 0, 0, null);
+		
+		k1.draw(g);
+		k2.draw(g);
+		a1.draw(g);
+		s1.draw(g);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		k1.attack(k2);
+		a1.attack(k2);
+		s1.attack(s1);
 		repaint();
 	}
 

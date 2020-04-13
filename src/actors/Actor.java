@@ -43,7 +43,6 @@ public class Actor extends Sprite implements Attack{
 	 * Update the internal state of the Actor. This means decrement the cool down counter.
 	 */
 	public void update() {
-		
 	}
 	
 	/**
@@ -79,9 +78,9 @@ public class Actor extends Sprite implements Attack{
 		Point2D.Double pos = this.getPosition();
 		Point2D.Double box = this.getHitbox();
 	    g.setColor(Color.BLACK);  
-		g.drawRect((int)pos.getX(),(int) pos.getY() , (int)box.getX(), 5);  
-	    g.setColor(Color.RED);  
-		g.fillRect((int)pos.getX(),(int) pos.getY() , (int)(box.getX() * this.health / (double)this.fullHealth), 5);  
+		g.drawRect((int)pos.getX(),(int) pos.getY() , (int)box.getX(), 5);
+	    g.setColor(Color.RED);
+		g.fillRect((int)pos.getX(),(int) pos.getY() , (int)(box.getX() * this.health / (double)this.fullHealth), 5);
 	}
 	
 	public void removeAction(ArrayList<Actor> others) {
@@ -93,6 +92,7 @@ public class Actor extends Sprite implements Attack{
 	 * @param other
 	 */
 	public void setCollisionStatus(Actor other) {
+		
 	}
 
 	@Override
