@@ -11,10 +11,6 @@ public class Knight extends Actor {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void draw(Graphics g) {
-		g.drawImage(getCurrentImg(), (int)this.getPosition().getX(), (int)this.getPosition().getY(), 
-				(int)Instance.getInstance().getHitBox().getX(), 
-				(int)Instance.getInstance().getHitBox().getY(), null);
-	}
+	
 
 }

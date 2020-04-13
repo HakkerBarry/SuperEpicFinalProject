@@ -14,9 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import actors.Actor;
-import actors.Grid;
 import actors.Instance;
-import actors.Knight;
 
 
 /**
@@ -33,12 +31,11 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	static BufferedImage scene;
 	Controller controller;
 	Actor[][] defender;
+	ArrayList<Actor> enemies;
 	
-	//test area
-	Knight k1,k2,k3,k4,k5;
-	
-	
-	//
+	/**
+	 * Constructor
+	 */
 	public Game()
 	{
 		scene = Instance.getInstance().getScene();
@@ -47,6 +44,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 		tick = new Timer(30,this);
 		
 		defender = new Actor[5][9];
+		enemies = new ArrayList<>();
 		
 		tick.start();
 	}
@@ -54,6 +52,23 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	@Override
 	protected void paintComponent(Graphics g)
 	{
+		//Loop each reference in array draw from far to close defender
+		for(int y = 0; y < 5; y++)
+		{
+			for(int x = 0; x < 9; x++)
+			{
+				if(defender[y][x] == null)
+					continue;
+				defender[y][x].update();
+				defender[y][x].draw(g);
+			}
+		}
+		
+		for(Actor enemy: enemies)
+		{
+			enemy.update();
+			enemy.draw(g);
+		}
 		g.drawImage(scene, 0, 0, null);
 	}
 	

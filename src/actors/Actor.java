@@ -119,6 +119,11 @@ public class Actor extends Sprite implements Attack{
 				this.setCurrentIgm(this.get(1, coolDown - coolDownCounter));
 			}
 		}
-		
+	}
+	
+	public void draw(Graphics g) {
+		g.drawImage(getCurrentImg(), (int)this.getPosition().getX(), (int)this.getPosition().getY(), 
+				(int)Instance.getInstance().getHitBox().getX(), 
+				(int)Instance.getInstance().getHitBox().getY(), null);
 	}
 }
