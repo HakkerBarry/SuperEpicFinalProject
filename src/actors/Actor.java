@@ -60,9 +60,13 @@ public class Actor extends Sprite implements Attack{
 	}
 	
 	public void changeHealth(int change) {
+		if(state == DEAD)
+			return;
 		health += change;
-		if(health <= 0)
+		if(health <= 0) {
+			health = 0;
 			state = DEAD;
+			}
 	}
 	
 	public boolean isAlive() {
@@ -94,7 +98,8 @@ public class Actor extends Sprite implements Attack{
 	public void setCollisionStatus(Actor other) {
 		
 	}
-
+	
+	
 	@Override
 	public void attack(Actor other) {
 		if(state == DEAD)
@@ -125,5 +130,6 @@ public class Actor extends Sprite implements Attack{
 		g.drawImage(getCurrentImg(), (int)this.getPosition().getX(), (int)this.getPosition().getY(), 
 				(int)Instance.getInstance().getHitBox().getX(), 
 				(int)Instance.getInstance().getHitBox().getY(), null);
+		this.drawHealthBar(g);
 	}
 }

@@ -93,9 +93,9 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		k1.attack(k2);
+		k1.attack(s1);
 		a1.attack(k2);
-		s1.attack(s1);
+		s1.attack(k2);
 		repaint();
 	}
 
