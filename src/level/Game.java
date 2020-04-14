@@ -34,12 +34,12 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	private Timer tick;
 	static BufferedImage scene;
 	Controller controller;
-	Actor[][] defender;
-	ArrayList<Actor> enemies;
+	public Actor[][] defender;
+	public ArrayList<Actor> enemies;
 	
-	private Knight k1, k2;
-	private Archer a1;
+	private Knight k1;
 	private Skeleton s1;
+	private Archer a1;
 	
 	/**
 	 * Constructor
@@ -49,14 +49,21 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 		scene = Instance.getInstance().getScene();
 		setPreferredSize(new Dimension(1440,900));
 		controller = new Controller();
-		tick = new Timer(30,this);
+		tick = new Timer(50,this);
 		k1 = new Knight(Grid.getCellPosition(1, 1));
-		k2 = new Knight(Grid.getCellPosition(1,	0));
-		a1 = new Archer(Grid.getCellPosition(2, 2));
-		s1 = new Skeleton(Grid.getCellPosition(3, 3),3);
+		s1 = new Skeleton(Grid.getCellPosition(8, 1),1);
+		a1 = new Archer(Grid.getCellPosition(0, 1));
+		
 		
 		defender = new Actor[5][9];
 		enemies = new ArrayList<>();
+		Instance.getInstance().setDefenders(defender);
+		Instance.getInstance().setEnemies(enemies);
+		
+		defender[1][1] = k1;
+		defender[0][1] = a1;
+		a1.setTarget(s1);
+		enemies.add(s1);
 		
 		tick.start();
 	}
@@ -66,36 +73,44 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	{
 		//Loop each reference in array draw from far to close defender
 		
+		g.drawImage(scene, 0, 0, null);
+		
 		for(int y = 0; y < 5; y++)
 		{
 			for(int x = 0; x < 9; x++)
 			{
 				if(defender[y][x] == null)
 					continue;
+				if(!defender[y][x].isAlive())
+				{
+					defender[y][x] = null;
+					continue;
+				}
 				defender[y][x].update();
 				defender[y][x].draw(g);
 			}
 		}
-		
+
+		ArrayList<Actor> deadEnemies = new ArrayList<>();
 		for(Actor enemy: enemies)
 		{
+			if(!enemy.isAlive())
+			{
+				deadEnemies.add(enemy);
+				continue;
+			}
 			enemy.update();
 			enemy.draw(g);
 		}
-		g.drawImage(scene, 0, 0, null);
-		
-		k1.draw(g);
-		k2.draw(g);
-		a1.draw(g);
-		s1.draw(g);
+		//remove dead Enemies
+		for(Actor dead :deadEnemies)
+		{
+			enemies.remove(dead);
+		}
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		k1.attack(k2);
-		a1.attack(k2);
-		s1.attack(s1);
 		repaint();
 	}
 

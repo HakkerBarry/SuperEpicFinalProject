@@ -9,6 +9,8 @@ public class Instance {
 	static Instance instance = null;
 	static BufferedImage scene;
 	private Point2D.Double standardHitBox = new Point2D.Double(100,115);
+	public Actor[][] defenders;
+	public ArrayList<Actor> enemies;
 	
 	public ArrayList<ArrayList<BufferedImage>> knight;
 	public ArrayList<ArrayList<BufferedImage>> skeleton;
@@ -26,6 +28,27 @@ public class Instance {
 		archer = Loader.loadArcher();
 		scene = Loader.loadScene();
 	}
+	
+	public void setEnemies(ArrayList<Actor> enemies)
+	{
+		this.enemies = enemies;
+	}
+	
+	public ArrayList<Actor> getEnemies()
+	{
+		return this.enemies;
+	}
+	
+	public void setDefenders(Actor[][] defenders)
+	{
+		this.defenders = defenders;
+	}
+	
+	public Actor[][]  getDefenders()
+	{
+		return this.defenders;
+	}
+	
 	
 	public Point2D.Double getHitBox()
 	{

@@ -124,7 +124,7 @@ public class Loader {
 		{
 			try {
 				String num = String.format("%02d", i);
-				BufferedImage temp = ImageIO.read(new File("assets/Skeleton/Attack/Attack_"+ num + ".png"));
+				BufferedImage temp = ImageIO.read(new File("assets/Skeleton/Dead/Dead_"+ num + ".png"));
 				deadImages.add(temp);
 			}
 			catch(IOException e)
@@ -142,7 +142,7 @@ public class Loader {
 		/**the ArrayList storage the knight
 		 * 0 element is Idle
 		 * 1 element is attack
-		 * 3 element is Dead
+		 * 2 element is Dead
 		 */
 		ArrayList<ArrayList<BufferedImage>> knight = new ArrayList<>();
 		
