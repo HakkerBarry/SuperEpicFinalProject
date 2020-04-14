@@ -37,7 +37,7 @@ public class Instance {
 		return scene;
 	}
 	
-	static public Instance getInstance()
+	public static Instance getInstance()
 	{
 		if(instance != null)
 			return instance;
