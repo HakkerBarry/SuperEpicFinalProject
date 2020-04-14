@@ -87,11 +87,21 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 			}
 		}
 
+		ArrayList<Actor> deadEnemies = new ArrayList<>();
 		for(Actor enemy: enemies)
 		{
-			enemy = (Skeleton)enemy;
+			if(!enemy.isAlive())
+			{
+				deadEnemies.add(enemy);
+				continue;
+			}
 			enemy.update();
 			enemy.draw(g);
+		}
+		//remove dead Enemies
+		for(Actor dead :deadEnemies)
+		{
+			enemies.remove(dead);
 		}
 	}
 	

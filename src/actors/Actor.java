@@ -91,7 +91,7 @@ public class Actor extends Sprite implements Attack{
 	}
 	
 	public boolean isAlive() {
-		return (state != DEAD && state!= DEADING) ;
+		return (state != DEAD) ;
 	}
 	
 	/**

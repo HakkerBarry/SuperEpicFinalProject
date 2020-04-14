@@ -48,10 +48,10 @@ public class Skeleton extends Actor {
 		//System.out.println("Skeleton called");
 		//super.update();
 		//check if Actor Dead
-		if(this.state == DEAD)
-		{
-			Instance.getInstance().enemies.remove(this);
-		}
+//		if(this.state == DEAD)
+//		{
+//			Instance.getInstance().enemies.remove(this);
+//		}
 		
 		if(this.state == DEADING)
 		{
@@ -70,6 +70,4 @@ public class Skeleton extends Actor {
 			this.idle();
 		}
 	}
-	
-	
 }
