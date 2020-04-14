@@ -39,6 +39,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	
 	private Knight k1;
 	private Skeleton s1;
+	private Archer a1;
 	
 	/**
 	 * Constructor
@@ -50,7 +51,8 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 		controller = new Controller();
 		tick = new Timer(50,this);
 		k1 = new Knight(Grid.getCellPosition(1, 1));
-		s1 = new Skeleton(Grid.getCellPosition(3, 1),1);
+		s1 = new Skeleton(Grid.getCellPosition(8, 1),1);
+		a1 = new Archer(Grid.getCellPosition(0, 1));
 		
 		
 		defender = new Actor[5][9];
@@ -59,6 +61,8 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 		Instance.getInstance().setEnemies(enemies);
 		
 		defender[1][1] = k1;
+		defender[0][1] = a1;
+		a1.setTarget(s1);
 		enemies.add(s1);
 		
 		tick.start();
