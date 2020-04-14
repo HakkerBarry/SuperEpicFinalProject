@@ -22,7 +22,7 @@ public class Actor extends Sprite implements Attack{
 	private double speed;		// The speed at which it moves
 	private int deadCoolDown;
 	private int idelCoolDown;
-	private Actor target;
+	protected Actor target;
 	
 	public Actor(Point2D.Double startingPosition, Point2D.Double initHitbox, ArrayList<ArrayList<BufferedImage>> img, int health, int coolDown,int deadCoolDown, int idelCoolDown, double speed, int attackDamage) {
 		super(startingPosition, initHitbox, img);
@@ -46,24 +46,23 @@ public class Actor extends Sprite implements Attack{
 	}
 	
 	/**
-	 * Update the internal state of the Actor. This means decrement the cool down counter.
+	 * Update the internal state of the Actor.
 	 */
 	public void update() {
-		if(state == DEADING)
-		{
-			this.deading();
-		}
-		
-		if(target != null)
-		{
-			this.attack(target);
-		}
-		
-		if(state == IDLE)
-		{
-			this.idle();
-		}
-		
+//		//check if Actor Dead
+//		if(this.state == DEADING)
+//		{
+//			this.deading();
+//		}
+//		//check if attacking
+//		if(this.target != null)
+//		{
+//			this.attack(target);
+//		}
+//		if(this.state == IDLE)
+//		{
+//			this.idle();
+//		}
 	}
 	
 	/**
@@ -92,7 +91,7 @@ public class Actor extends Sprite implements Attack{
 	}
 	
 	public boolean isAlive() {
-		return state!= DEAD ;
+		return (state != DEAD && state!= DEADING) ;
 	}
 	
 	/**
@@ -124,8 +123,6 @@ public class Actor extends Sprite implements Attack{
 	
 	@Override
 	public void attack(Actor other) {
-//		if(state == DEADING)
-//			return;
 		if(!other.isAlive())
 		{
 			state = IDLE;
