@@ -1,5 +1,6 @@
 package actors;
 
+import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 
 public class Archer extends Actor {
@@ -31,11 +32,12 @@ public class Archer extends Actor {
 		if(state == ATTACK)
 		{
 			if(coolDownCounter == this.coolDown) {//the final frame of attack anime
-				System.out.println("a attack called");
-				this.setCurrentIgm(this.get(ATTACK, coolDown));
-				Arrow arrow = new Arrow(this.getPosition());
-				//add arrow to list in game
 				System.out.println(this.getPosition());
+				this.setCurrentIgm(this.get(ATTACK, coolDown));
+				Arrow arrow = new Arrow(new Point2D.Double(this.getPosition().getX(),this.getPosition().getY()));
+				//Arrow arrow = new Arrow(this.getPosition());
+				//add arrow to list in game
+				System.out.println(this.getPosition().getX());
 				Instance.getInstance().getGame().arrows.add(arrow);
 				this.resetCoolDown();
 				state = IDLE;

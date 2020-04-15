@@ -92,6 +92,10 @@ public class Actor extends Sprite implements Attack{
 		return (state != DEAD) ;
 	}
 	
+	public boolean isNotDeaing()
+	{
+		return state != DEADING;
+	}
 	/**
 	 * Since we don't have an easy way of showing health using a nice series of images,
 	 * provide health feedback with a health status bar.

@@ -26,7 +26,7 @@ public class Arrow extends Sprite{
 		ArrayList<Actor> enemies = Instance.getInstance().getEnemies();
 		for(Actor enemy: enemies)
 		{
-			if(isCollidingOther(enemy) && enemy.isAlive())
+			if(isCollidingOther(enemy) && enemy.isAlive() && enemy.isNotDeaing())
 			{
 				//cause damege
 				state = DEAD;
@@ -34,7 +34,7 @@ public class Arrow extends Sprite{
 			}
 		}
 		//System.out.
-		this.shiftPosition(new Point2D.Double(5,0));
+		this.shiftPosition(new Point2D.Double(10,0));
 	}
 	
 	public void draw(Graphics g) {
@@ -44,6 +44,6 @@ public class Arrow extends Sprite{
 	}
 	
 	public boolean isAlive() {
-		return (state != DEAD) ;
+		return (state != DEAD);
 	}
 }
