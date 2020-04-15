@@ -23,8 +23,8 @@ import actors.Skeleton;
 
 
 /**
- * @author Zixuan, Dhundup
- * Uid: u1303111,
+ * @author Zixuan, Dhundup Tsering
+ * Uid: u1303111, u1257529
  */
 public class Game extends JPanel implements ActionListener, MouseListener{
 	
