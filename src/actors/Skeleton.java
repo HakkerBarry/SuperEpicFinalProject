@@ -8,7 +8,7 @@ public class Skeleton extends Actor {
 
 	private int line;
 	public Skeleton(Double startingPosition, int line) {
-		super(startingPosition, Instance.getInstance().getHitBox(), Instance.getInstance().skeleton, 100, 17, 14, 12, -5, 20);
+		super(startingPosition, Instance.getInstance().getActorBox(), Instance.getInstance().skeleton, 100, 17, 14, 12, -5, 20);
 		this.line = line;
 	}
 	
@@ -24,7 +24,10 @@ public class Skeleton extends Actor {
 	public void idle()
 	{
 		super.idle();
+		if(this.target == null) 
+		{
 		super.shiftPosition(new Point2D.Double(super.getSpeed(),0));
+		}
 		Actor[][] defenders = Instance.getInstance().getDefenders();
 		for(int i = 0; i < 5; i++)
 		{
@@ -45,25 +48,7 @@ public class Skeleton extends Actor {
 	@Override
 	public void update()
 	{
-		//System.out.println("Skeleton called");
-		//super.update();
-		//check if Actor Dead
-//		if(this.state == DEAD)
-//		{
-//			Instance.getInstance().enemies.remove(this);
-//		}
-		
-		if(this.state == DEADING)
-		{
-			this.deading();
-			return;
-		}
-//		//check if attacking
-		if(this.target != null)
-		{
-			super.attack(target);
-			return;
-		}
+		super.update();
 			
 		if(this.state == IDLE)
 		{

@@ -1,31 +1,54 @@
 package actors;
 
+import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 
 public class Archer extends Actor {
 
 	public Archer(Double startingPosition) {
-		super(startingPosition, Instance.getInstance().getHitBox(), Instance.getInstance().archer, 50, 13, 23, 7, 0, 20);
+		super(startingPosition, Instance.getInstance().getActorBox(), Instance.getInstance().archer, 50, 13, 23, 7, 0, 20);
 	}
 
 	public void update()
 	{
-		if(this.state == DEADING)
-		{
-			this.deading();
-			return;
-		}
-		//check if attacking
-		if(this.target != null)
-		{
-			this.attack(target);
-			return;
-		}
-		
+		super.update();
 			
 		if(state == IDLE)
 		{
 			this.idle();
 		}
+	}
+	
+	@Override
+	public void attack(Actor other) 
+	{
+		if(!other.isAlive())
+		{
+			state = IDLE;
+			target = null;
+			this.coolDownCounter = 0;
+			return;
+		}
+		if(state == ATTACK)
+		{
+			if(coolDownCounter == this.coolDown) {//the final frame of attack anime
+				System.out.println(this.getPosition());
+				this.setCurrentIgm(this.get(ATTACK, coolDown));
+				Arrow arrow = new Arrow(new Point2D.Double(this.getPosition().getX(),this.getPosition().getY()));
+				//Arrow arrow = new Arrow(this.getPosition());
+				//add arrow to list in game
+				System.out.println(this.getPosition().getX());
+				Instance.getInstance().getGame().arrows.add(arrow);
+				this.resetCoolDown();
+				state = IDLE;
+				}
+			else if(coolDownCounter < this.coolDown)
+			{
+				addCooldown();
+				this.setCurrentIgm(this.get(1, coolDownCounter));
+			}
+		}
+		
+		
 	}
 }

@@ -15,6 +15,7 @@ import javax.swing.Timer;
 
 import actors.Actor;
 import actors.Archer;
+import actors.Arrow;
 import actors.Grid;
 import actors.Instance;
 import actors.Knight;
@@ -36,7 +37,9 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	Controller controller;
 	public Actor[][] defender;
 	public ArrayList<Actor> enemies;
+	public ArrayList<Arrow> arrows;
 	
+	//test area
 	private Knight k1;
 	private Skeleton s1;
 	private Archer a1;
@@ -50,21 +53,25 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 		setPreferredSize(new Dimension(1440,900));
 		controller = new Controller();
 		tick = new Timer(50,this);
+		
+		//test area------------------------
 		k1 = new Knight(Grid.getCellPosition(1, 1));
 		s1 = new Skeleton(Grid.getCellPosition(8, 1),1);
 		a1 = new Archer(Grid.getCellPosition(0, 1));
-		
+		//---------------------------------
 		
 		defender = new Actor[5][9];
 		enemies = new ArrayList<>();
+		arrows = new ArrayList<>();
 		Instance.getInstance().setDefenders(defender);
 		Instance.getInstance().setEnemies(enemies);
 		
+		//test area--------------------
 		defender[1][1] = k1;
 		defender[0][1] = a1;
 		a1.setTarget(s1);
 		enemies.add(s1);
-		
+		//---------------------------------
 		tick.start();
 	}
 	
@@ -75,6 +82,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 		
 		g.drawImage(scene, 0, 0, null);
 		
+		//update and draw defender
 		for(int y = 0; y < 5; y++)
 		{
 			for(int x = 0; x < 9; x++)
@@ -91,6 +99,26 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 			}
 		}
 
+		//update and draw arrow
+		ArrayList<Arrow> deadArrow = new ArrayList<>();
+		for(Arrow arrow: arrows)
+		{
+			if(!arrow.isAlive())
+			{
+				deadArrow.add(arrow);
+				continue;
+			}
+			arrow.update();
+			arrow.draw(g);
+		}
+		//remove dead Enemies
+		for(Arrow dead :deadArrow)
+		{
+			arrows.remove(dead);
+		}
+		
+		
+		//update and draw enemies
 		ArrayList<Actor> deadEnemies = new ArrayList<>();
 		for(Actor enemy: enemies)
 		{
@@ -124,6 +152,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
 	{
 		JFrame mainFrame = new JFrame();
 		Game epic = new Game();
+		Instance.getInstance().setGame(epic);
 		mainFrame.add(epic);
 		mainFrame.pack();
 		mainFrame.setVisible(true);
