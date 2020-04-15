@@ -1,5 +1,6 @@
 package actors;
 
+import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 
 public class Archer extends Actor {
