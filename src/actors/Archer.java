@@ -2,14 +2,12 @@ package actors;
 
 import java.awt.geom.Point2D.Double;
 
-public class Knight extends Actor {
-	
-	
-	public Knight(Double startingPosition) {
-		super(startingPosition, Instance.getInstance().getHitBox(), Instance.getInstance().knight, 200, 8, 14, 14, 0, 10);
+public class Archer extends Actor {
+
+	public Archer(Double startingPosition) {
+		super(startingPosition, Instance.getInstance().getHitBox(), Instance.getInstance().archer, 50, 13, 23, 7, 0, 20);
 	}
 
-	@Override
 	public void update()
 	{
 		if(this.state == DEADING)
@@ -30,5 +28,4 @@ public class Knight extends Actor {
 			this.idle();
 		}
 	}
-
 }
