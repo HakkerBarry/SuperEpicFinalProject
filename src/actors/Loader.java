@@ -209,4 +209,20 @@ public class Loader {
 		return null;
 	}
 	
+	public static ArrayList<ArrayList<BufferedImage>> loadArrow()
+	{
+		ArrayList<ArrayList<BufferedImage>> arrow = new ArrayList<>();
+		try {
+			ArrayList<BufferedImage> temp = new ArrayList<>();
+			temp.add(ImageIO.read(new File("assets/Arrow/Arrow.png")));
+			arrow.add(temp);
+			
+			return arrow;
+		}
+		catch(IOException e)
+		{
+			System.out.println("Arrow not found");
+		}
+		return null;
+	}
 }

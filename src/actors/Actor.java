@@ -17,8 +17,8 @@ public class Actor extends Sprite implements Attack{
 	private int health; 		// Current health of an Actor object
 	private int fullHealth;		// The max health if healed. Used in the drawn health bar.
 	protected int attackDamage;  	// Damage this Actor does to another Actor.
-	private int coolDownCounter;// Current count of the cooldown.
-	private int coolDown;		// Starting cool down value 
+	protected int coolDownCounter;// Current count of the cooldown.
+	protected int coolDown;		// Starting cool down value 
 	private double speed;		// The speed at which it moves
 	private int deadCoolDown;
 	private int idelCoolDown;
@@ -50,19 +50,17 @@ public class Actor extends Sprite implements Attack{
 	 */
 	public void update() {
 //		//check if Actor Dead
-//		if(this.state == DEADING)
-//		{
-//			this.deading();
-//		}
-//		//check if attacking
-//		if(this.target != null)
-//		{
-//			this.attack(target);
-//		}
-//		if(this.state == IDLE)
-//		{
-//			this.idle();
-//		}
+		if(this.state == DEADING)
+		{
+			this.deading();
+			return;
+		}
+		//check if attacking
+		if(this.target != null && this.target.state != DEADING)
+		{
+			this.attack(target);
+			return;
+		}
 	}
 	
 	/**
@@ -138,9 +136,11 @@ public class Actor extends Sprite implements Attack{
 		}
 		if(state == ATTACK)
 		{
-			if(coolDownCounter == this.coolDown) {//the final frame of attack anime
+			if(coolDownCounter == this.coolDown) {
+				//the final frame of attack anime
 				this.setCurrentIgm(this.get(ATTACK, coolDown));
-				other.changeHealth(-attackDamage);
+				if(!(this instanceof Archer)) {
+				other.changeHealth(-attackDamage);}
 				this.resetCoolDown();
 				state = IDLE;
 				}
@@ -168,6 +168,12 @@ public class Actor extends Sprite implements Attack{
 	
 	public void idle()
 	{
+		if(target!=null)
+		{
+			state = ATTACK;
+			this.setCurrentIgm(this.get(IDLE, coolDownCounter));
+			coolDownCounter = 0;
+		}
 		if(coolDownCounter < idelCoolDown-1)
 		{
 			this.setCurrentIgm(this.get(IDLE, coolDownCounter));

@@ -72,7 +72,7 @@ public class Sprite {
 	 * @param offset - a Point2D holds an x and y coordinate.
 	 */
 	public void shiftPosition(Point2D.Double offset) {
-		position.setLocation(position.getX() + offset.getX(), position.getY() + offset.getY());
+		this.position.setLocation(position.getX() + offset.getX(), position.getY() + offset.getY());
 	}
 	
 	/**
