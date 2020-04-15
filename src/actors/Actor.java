@@ -50,16 +50,17 @@ public class Actor extends Sprite implements Attack{
 	 */
 	public void update() {
 //		//check if Actor Dead
-		if(this.state == DEADING)
+		switch(this.state)
 		{
+		case DEADING:
 			this.deading();
-			return;
-		}
-		//check if attacking
-		if(this.target != null && this.target.isNotDeaing())
-		{
-			this.attack(target);
-			return;
+			break;
+		case IDLE:
+			this.idle();
+			break;
+		case ATTACK:
+			this.attack(this.target);
+			break;
 		}
 	}
 	
@@ -125,69 +126,79 @@ public class Actor extends Sprite implements Attack{
 	
 	@Override
 	public void attack(Actor other) {
-		if(!other.isAlive()&&!other.isNotDeaing())
-		{
-			state = IDLE;
-			target = null;
-			this.coolDownCounter = 0;
-			return;
-		}
-		if(state == IDLE)
-		{
-			state = ATTACK;
+//		if(!other.isAlive()&&!other.isNotDeaing())
+//		{
+//			state = IDLE;
+//			target = null;
+//			this.coolDownCounter = 0;
+//			return;
+//		}
+//		if(state == IDLE)
+//		{
+//			state = ATTACK;
+//			this.resetCoolDown();
+//			this.setCurrentIgm(this.get(1, 0));
+//		}
+//		if(state == ATTACK)
+//		{
+		if(coolDownCounter == this.coolDown) {
+			//the final frame of attack anime
+		this.setCurrentIgm(this.get(ATTACK, coolDown));
+		if(!(this instanceof Archer)) {
+			other.changeHealth(-attackDamage);}
 			this.resetCoolDown();
-			this.setCurrentIgm(this.get(1, 0));
-		}
-		if(state == ATTACK)
-		{
-			if(coolDownCounter == this.coolDown) {
-				//the final frame of attack anime
-				this.setCurrentIgm(this.get(ATTACK, coolDown));
-				if(!(this instanceof Archer)) {
-				other.changeHealth(-attackDamage);}
-				this.resetCoolDown();
+			if(target.state == DEADING || target.state == DEAD) {
 				state = IDLE;
-				}
-			else if(coolDownCounter < this.coolDown)
-			{
-				addCooldown();
-				this.setCurrentIgm(this.get(1, coolDownCounter));
+				this.target = null;
 			}
+			}
+		else if(coolDownCounter < this.coolDown)
+		{
+			addCooldown();
+			this.setCurrentIgm(this.get(1, coolDownCounter));
 		}
+//		}
 	}
 	
 	public void deading()
 	{
-		if(coolDownCounter < deadCoolDown-1)
-		{
-			this.setCurrentIgm(this.get(DEADING, coolDownCounter));
-			coolDownCounter++;
-		}
-		else
-		{
-			this.setCurrentIgm(this.get(DEADING, coolDownCounter));
-			state = DEAD;
-		}
+		this.setCurrentIgm(this.get(DEADING, coolDownCounter));
+		coolDownCounter++;
+		if(coolDownCounter >= deadCoolDown-1)
+			this.state = DEAD;
+//		{
+//			this.setCurrentIgm(this.get(DEADING, coolDownCounter));
+//			coolDownCounter++;
+//		}
+//		else
+//		{
+//			this.setCurrentIgm(this.get(DEADING, coolDownCounter));
+//			state = DEAD;
+//		}
 	}
 	
 	public void idle()
 	{
-		if(target!=null)
+//		if(target!=null)
+//		{
+		this.setCurrentIgm(this.get(IDLE, coolDownCounter));
+		coolDownCounter++;
+		if(coolDownCounter >= idelCoolDown-1)
 		{
-			state = ATTACK;
-			this.setCurrentIgm(this.get(IDLE, coolDownCounter));
 			coolDownCounter = 0;
 		}
-		if(coolDownCounter < idelCoolDown-1)
-		{
-			this.setCurrentIgm(this.get(IDLE, coolDownCounter));
-			coolDownCounter++;
-		}
-		else
-		{
-			this.setCurrentIgm(this.get(IDLE, idelCoolDown));
-			coolDownCounter = 0;
-		}
+//			coolDownCounter = 0;
+//		}
+//		if(coolDownCounter < idelCoolDown-1)
+//		{
+//			this.setCurrentIgm(this.get(IDLE, coolDownCounter));
+//			coolDownCounter++;
+//		}
+//		else
+//		{
+//			this.setCurrentIgm(this.get(IDLE, idelCoolDown));
+//			coolDownCounter = 0;
+//		}
 	}
 	
 	public void draw(Graphics g) {

@@ -9,16 +9,16 @@ public class Knight extends Actor {
 		super(startingPosition, Instance.getInstance().getActorBox(), Instance.getInstance().knight, 200, 8, 14, 14, 0, 10);
 	}
 
-	@Override
-	public void update()
-	{
-		super.update();
-		
-			
-		if(state == IDLE)
-		{
-			this.idle();
-		}
-	}
+//	@Override
+//	public void update()
+//	{
+//		super.update();
+//		
+//			
+//		if(state == IDLE)
+//		{
+//			this.idle();
+//		}
+//	}
 
 }

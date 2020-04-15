@@ -10,21 +10,6 @@ public class Archer extends Actor {
 		super(startingPosition, Instance.getInstance().getActorBox(), Instance.getInstance().archer, 50, 13, 23, 7, 0, 20);
 		this.line = line;
 	}
-
-	public void update()
-	{	
-		super.update();
-		for(Actor temp :(Instance.getInstance().getGame().enemies))
-		{
-			Skeleton skeleton = (Skeleton)temp;
-			if(skeleton.getLine() == this.line)
-				this.setTarget(temp);
-		}
-		if(state == IDLE)
-		{
-			this.idle();
-		}
-	}
 	
 	@Override
 	public void attack(Actor other) 
@@ -52,7 +37,20 @@ public class Archer extends Actor {
 				this.setCurrentIgm(this.get(1, coolDownCounter));
 			}
 		}
-		
-		
+	}
+	
+	@Override
+	public void idle()
+	{
+		super.idle();
+		for(Actor enemy: Instance.getInstance().getEnemies())
+		{
+			Skeleton skeleton = (Skeleton)enemy;
+			if(skeleton.getLine() == this.line)
+			{
+				state = ATTACK;
+				coolDownCounter = 0;
+			}
+		}
 	}
 }

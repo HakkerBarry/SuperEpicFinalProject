@@ -26,7 +26,7 @@ public class Arrow extends Sprite{
 		ArrayList<Actor> enemies = Instance.getInstance().getEnemies();
 		for(Actor enemy: enemies)
 		{
-			if(isCollidingOther(enemy) && enemy.isAlive() && enemy.isNotDEAING())
+			if(isCollidingOther(enemy) && enemy.isAlive() && enemy.isNotDeaing())
 			{
 				//cause damege
 				state = DEAD;

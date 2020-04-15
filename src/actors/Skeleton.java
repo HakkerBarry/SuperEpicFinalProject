@@ -24,10 +24,8 @@ public class Skeleton extends Actor {
 	public void idle()
 	{
 		super.idle();
-		if(this.target == null) 
-		{
 		super.shiftPosition(new Point2D.Double(super.getSpeed(),0));
-		}
+		
 		Actor[][] defenders = Instance.getInstance().getDefenders();
 		for(int i = 0; i < 5; i++)
 		{
@@ -35,11 +33,11 @@ public class Skeleton extends Actor {
 			{
 				if(defenders[i][j] == null)
 					continue;
-				if(isCollidingOther(defenders[i][j]) && defenders[i][j].isAlive())
+				if(isCollidingOther(defenders[i][j]) && defenders[i][j].isAlive()&&defenders[i][j].isNotDeaing())
 				{
+					this.state = ATTACK;
 					setTarget(defenders[i][j]);
 					this.resetCoolDown();
-					defenders[i][j].setTarget(this);
 				}
 			}
 		}
