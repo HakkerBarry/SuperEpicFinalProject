@@ -56,7 +56,7 @@ public class Actor extends Sprite implements Attack{
 			return;
 		}
 		//check if attacking
-		if(this.target != null && this.target.state != DEADING)
+		if(this.target != null && this.target.isNotDeaing())
 		{
 			this.attack(target);
 			return;
@@ -78,7 +78,7 @@ public class Actor extends Sprite implements Attack{
 	}
 	
 	public void changeHealth(int change) {
-		if(state == DEADING)
+		if(state == DEADING || state == DEAD)
 			return;
 		health += change;
 		if(health <= 0) {
@@ -92,7 +92,7 @@ public class Actor extends Sprite implements Attack{
 		return (state != DEAD) ;
 	}
 	
-	public boolean isNotDEAING()
+	public boolean isNotDeaing()
 	{
 		return (state != DEADING);
 	}
@@ -125,7 +125,7 @@ public class Actor extends Sprite implements Attack{
 	
 	@Override
 	public void attack(Actor other) {
-		if(!other.isAlive())
+		if(!other.isAlive()&&!other.isNotDeaing())
 		{
 			state = IDLE;
 			target = null;

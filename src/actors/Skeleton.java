@@ -55,4 +55,8 @@ public class Skeleton extends Actor {
 			this.idle();
 		}
 	}
+
+	public int getLine() {
+		return line;
+	}
 }
