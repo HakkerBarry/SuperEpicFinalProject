@@ -81,12 +81,13 @@ public class Instance {
 		return scene;
 	}
 	
+
 	public ArrayList<ArrayList<BufferedImage>> getArrow()
 	{
 		return arrow;
 	}
 	
-	static public Instance getInstance()
+	public static Instance getInstance()
 	{
 		if(instance != null)
 			return instance;
