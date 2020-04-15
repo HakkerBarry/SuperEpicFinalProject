@@ -34,7 +34,11 @@ public class Arrow extends Sprite{
 			}
 		}
 		//System.out.
+<<<<<<< Updated upstream
 		this.shiftPosition(new Point2D.Double(5,0));
+=======
+		this.shiftPosition(new Point2D.Double(15,0));
+>>>>>>> Stashed changes
 	}
 	
 	public void draw(Graphics g) {
