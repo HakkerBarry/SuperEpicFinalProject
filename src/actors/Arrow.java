@@ -22,6 +22,8 @@ public class Arrow extends Sprite{
 	
 	public void update()
 	{
+		if(this.state == DEAD)
+			return;
 		ArrayList<Actor> enemies = Instance.getInstance().getEnemies();
 		for(Actor enemy: enemies)
 		{

@@ -38,12 +38,11 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 	public Actor[][] defender;
 	public ArrayList<Actor> enemies;
 	public ArrayList<Arrow> arrows;
+	private int Threshold;
 
 	// test area
-	private Knight k1;
-	
-	//test area
-	private Archer a1,a2,a3;
+	private Knight k1,k2,k3,k4,k5;
+	private Archer a1,a2,a3,a4,a5;
 	//----------------------
 
 	/**
@@ -54,12 +53,20 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 		setPreferredSize(new Dimension(1440, 900));
 		controller = new Controller();
 		tick = new Timer(50, this);
+		Threshold = 9990;
 
 		// test area------------------------
-		k1 = new Knight(Grid.getCellPosition(1, 1));
-		a1 = new Archer(Grid.getCellPosition(0, 1),1);
-		a2 = new Archer(Grid.getCellPosition(0, 2),2);
-		a3 = new Archer(Grid.getCellPosition(0, 3),3);
+		k1 = new Knight(Grid.getCellPosition(1, 0));
+		k2 = new Knight(Grid.getCellPosition(1, 1));
+		k3 = new Knight(Grid.getCellPosition(1, 2));
+		k4 = new Knight(Grid.getCellPosition(1, 3));
+		k5 = new Knight(Grid.getCellPosition(1, 4));
+		
+		a1 = new Archer(Grid.getCellPosition(0, 0),0);
+		a2 = new Archer(Grid.getCellPosition(0, 1),1);
+		a3 = new Archer(Grid.getCellPosition(0, 2),2);
+		a4 = new Archer(Grid.getCellPosition(0, 3),3);
+		a5 = new Archer(Grid.getCellPosition(0, 4),4);
 		// ---------------------------------
 
 		defender = new Actor[5][9];
@@ -69,10 +76,17 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 		Instance.getInstance().setEnemies(enemies);
 
 		// test area--------------------
-		defender[1][1] = k1;
-		defender[0][1] = a1;
-		defender[0][2] = a2;
-		defender[0][3] = a3;
+		defender[1][0] = k1;
+		defender[1][1] = k2;
+		defender[1][2] = k3;
+		defender[1][3] = k4;
+		defender[1][4] = k5;
+		
+		defender[0][0] = a1;
+		defender[0][1] = a2;
+		defender[0][2] = a3;
+		defender[0][3] = a4;
+		defender[0][4] = a5;
 		// ---------------------------------
 		tick.start();
 	}
@@ -94,6 +108,7 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		makeGameHarder();
 		repaint();
 	}
 
@@ -159,11 +174,10 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 		
 		Random rand =new Random();
 		
-		int seed = rand.nextInt(100)+1;
-		if(seed > 97)
+		int seed = rand.nextInt(10000)+1;
+		if(seed > Threshold)
 		{
 			int line = rand.nextInt(5);
-			System.out.println(line);
 			double xCell = Grid.getCellPosition(0, line).getY();
 			Skeleton skeleton = new Skeleton(new Point2D.Double(1430, xCell),line);
 			enemies.add(skeleton);
@@ -185,6 +199,13 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 		}
 	}
 
+	/**
+	 * decrease the threshold will make game harder
+	 */
+	private void makeGameHarder()
+	{
+		Threshold-- ;
+	}
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
