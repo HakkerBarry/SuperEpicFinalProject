@@ -1,6 +1,7 @@
 package actors;
 
 import java.awt.geom.Point2D.Double;
+import java.util.ArrayList;
 
 public class Knight extends Actor {
 	
@@ -8,16 +9,20 @@ public class Knight extends Actor {
 	public Knight(Double startingPosition) {
 		super(startingPosition, Instance.getInstance().getActorBox(), Instance.getInstance().knight, 200, 8, 14, 14, 0, 10);
 	}
-
-	@Override
-	public void update()
+	
+	public void idle()
 	{
-		super.update();
-		
-			
-		if(state == IDLE)
+		super.idle();
+		ArrayList<Actor> enemies = Instance.getInstance().getEnemies();
+		for(Actor enemy: enemies)
 		{
-			this.idle();
+			if(this.isCollidingOther(enemy) && enemy.isAlive() && enemy.isNotDeaing())
+			{
+				this.target = enemy;
+				this.resetCoolDown();
+				state = ATTACK;
+				break;
+			}
 		}
 	}
 

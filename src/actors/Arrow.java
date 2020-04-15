@@ -13,8 +13,7 @@ public class Arrow extends Sprite{
 	private static final int DEAD = 1;
 	
 	public Arrow(Double startingPosition) {
-		super(startingPosition,Instance.getInstance().getHitBox(), Instance.getInstance().getArrow());
-		// TODO Auto-generated constructor stub
+		super(startingPosition,Instance.getInstance().getActorBox(), Instance.getInstance().getArrow());
 		state = IDLE;
 	}
 
@@ -26,7 +25,7 @@ public class Arrow extends Sprite{
 		ArrayList<Actor> enemies = Instance.getInstance().getEnemies();
 		for(Actor enemy: enemies)
 		{
-			if(isCollidingOther(enemy) && enemy.isAlive() && enemy.isNotDeaing())
+			if(this.isCollidingOther(enemy) && enemy.isAlive() && enemy.isNotDeaing())
 			{
 				//cause damege
 				state = DEAD;
@@ -34,7 +33,8 @@ public class Arrow extends Sprite{
 			}
 		}
 		//System.out.
-		this.shiftPosition(new Point2D.Double(10,0));
+
+		this.shiftPosition(new Point2D.Double(15,0));
 	}
 	
 	public void draw(Graphics g) {
@@ -44,6 +44,6 @@ public class Arrow extends Sprite{
 	}
 	
 	public boolean isAlive() {
-		return (state != DEAD);
+		return (state != DEAD) ;
 	}
 }
