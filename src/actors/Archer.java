@@ -14,15 +14,6 @@ public class Archer extends Actor {
 	@Override
 	public void attack(Actor other) 
 	{
-		if(!other.isAlive())
-		{
-			state = IDLE;
-			target = null;
-			this.coolDownCounter = 0;
-			return;
-		}
-		if(state == ATTACK)
-		{
 			if(coolDownCounter == this.coolDown) {//the final frame of attack anime
 				this.setCurrentIgm(this.get(ATTACK, coolDown));
 				Arrow arrow = new Arrow(new Point2D.Double(this.getPosition().getX(),this.getPosition().getY()));
@@ -36,7 +27,7 @@ public class Archer extends Actor {
 				addCooldown();
 				this.setCurrentIgm(this.get(1, coolDownCounter));
 			}
-		}
+//		}
 	}
 	
 	@Override
