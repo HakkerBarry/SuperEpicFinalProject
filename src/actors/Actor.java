@@ -10,7 +10,7 @@ public class Actor extends Sprite implements Attack{
 	
 	protected static final int IDLE = 0;
 	protected static final int ATTACK = 1;
-	protected static final int DEADING = 2;
+	protected static final int DYING = 2;
 	protected static final int DEAD = 3;
 
 	public int state;
@@ -52,7 +52,7 @@ public class Actor extends Sprite implements Attack{
 //		//check if Actor Dead
 		switch(this.state)
 		{
-		case DEADING:
+		case DYING:
 			this.deading();
 			break;
 		case IDLE:
@@ -79,13 +79,13 @@ public class Actor extends Sprite implements Attack{
 	}
 	
 	public void changeHealth(int change) {
-		if(state == DEADING || state == DEAD)
+		if(state == DYING || state == DEAD)
 			return;
 		health += change;
 		if(health <= 0) {
 			health = 0;
 			this.coolDownCounter = 0;
-			state = DEADING;
+			state = DYING;
 			}
 	}
 	
@@ -95,7 +95,7 @@ public class Actor extends Sprite implements Attack{
 	
 	public boolean isNotDeaing()
 	{
-		return (state != DEADING);
+		return (state != DYING);
 	}
 	/**
 	 * Since we don't have an easy way of showing health using a nice series of images,
@@ -147,7 +147,7 @@ public class Actor extends Sprite implements Attack{
 		if(!(this instanceof Archer)) {
 			other.changeHealth(-attackDamage);}
 			this.resetCoolDown();
-			if(target.state == DEADING || target.state == DEAD) {
+			if(target.state == DYING || target.state == DEAD) {
 				state = IDLE;
 				this.target = null;
 			}
@@ -162,7 +162,7 @@ public class Actor extends Sprite implements Attack{
 	
 	public void deading()
 	{
-		this.setCurrentIgm(this.get(DEADING, coolDownCounter));
+		this.setCurrentIgm(this.get(DYING, coolDownCounter));
 		coolDownCounter++;
 		if(coolDownCounter >= deadCoolDown-1)
 			this.state = DEAD;
