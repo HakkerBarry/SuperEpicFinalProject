@@ -31,7 +31,7 @@ public class Grid {
 	
 	public static Point2D.Double getCellPosition(int x, int y)
 	{
-		if(x < 0|| x > col -1|| y< 0|| y > row -1 )
+		if(x < 0|| x > col -1|| y < 0|| y > row -1 )
 			return new Point2D.Double(-1,-1);
 		Point2D.Double result = new Point2D.Double(startPoint.getX()+ x*cellDimension.getX(),startPoint.getY()+y*cellDimension.getY());
 		return result;
