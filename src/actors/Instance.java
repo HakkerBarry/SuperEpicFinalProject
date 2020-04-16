@@ -7,6 +7,9 @@ import java.util.ArrayList;
 public class Instance {
 	
 	static Instance instance = null;
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 	static BufferedImage scene;
 	private Point2D.Double standardHitBox = new Point2D.Double(100,115);
 	public Actor[][] defenders;
