@@ -23,7 +23,7 @@ public class Controller {
 	}
 	
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println("mouse press");
 		
 	}
 	

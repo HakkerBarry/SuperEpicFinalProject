@@ -4,22 +4,25 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import level.Controller;
 import level.Game;
 
 public class Instance {
 	
 	static Instance instance = null;
-	static Game game = null;
+	private Game game = null;
 	static BufferedImage scene;
 	private Point2D.Double standardHitBox = new Point2D.Double(100,115);
 	private Point2D.Double actorHitBox = new Point2D.Double(100,80);
 	public Actor[][] defenders;
 	public ArrayList<Actor> enemies;
+	private static Controller controller;
 	
-	private ArrayList<ArrayList<BufferedImage>> arrow;
-	public ArrayList<ArrayList<BufferedImage>> knight;
-	public ArrayList<ArrayList<BufferedImage>> skeleton;
-	public ArrayList<ArrayList<BufferedImage>> archer;
+	//the animation for each king of actor
+	private static ArrayList<ArrayList<BufferedImage>> arrow;
+	public static ArrayList<ArrayList<BufferedImage>> knight;
+	public static ArrayList<ArrayList<BufferedImage>> skeleton;
+	public static ArrayList<ArrayList<BufferedImage>> archer;
 	
 	private Instance()
 	{
@@ -96,6 +99,16 @@ public class Instance {
 			instance = new Instance();
 			return instance;
 		}
+	}
+
+	public static Controller getController() {
+		return controller;
+	}
+
+
+
+	public static void setController(Controller controller) {
+		Instance.controller = controller;
 	}
 
 }
