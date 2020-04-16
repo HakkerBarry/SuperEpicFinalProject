@@ -21,10 +21,10 @@ public class Actor extends Sprite implements Attack{
 	protected int coolDown;		// Starting cool down value 
 	private double speed;		// The speed at which it moves
 	private int deadCoolDown;
-	private int idelCoolDown;
+	private int idleCoolDown;
 	protected Actor target;
 	
-	public Actor(Point2D.Double startingPosition, Point2D.Double initHitbox, ArrayList<ArrayList<BufferedImage>> img, int health, int coolDown,int deadCoolDown, int idelCoolDown, double speed, int attackDamage) {
+	public Actor(Point2D.Double startingPosition, Point2D.Double initHitbox, ArrayList<ArrayList<BufferedImage>> img, int health, int coolDown,int deadCoolDown, int idleCoolDown, double speed, int attackDamage) {
 		super(startingPosition, initHitbox, img);
 		this.health = health;
 		this.fullHealth = health;
@@ -33,7 +33,7 @@ public class Actor extends Sprite implements Attack{
 		this.speed = speed;
 		this.attackDamage = attackDamage;
 		this.deadCoolDown = deadCoolDown;
-		this.idelCoolDown = idelCoolDown;
+		this.idleCoolDown = idleCoolDown;
 		this.state = IDLE;
 	}
 	
@@ -183,7 +183,7 @@ public class Actor extends Sprite implements Attack{
 //		{
 		this.setCurrentIgm(this.get(IDLE, coolDownCounter));
 		coolDownCounter++;
-		if(coolDownCounter >= idelCoolDown-1)
+		if(coolDownCounter >= idleCoolDown-1)
 		{
 			coolDownCounter = 0;
 		}
