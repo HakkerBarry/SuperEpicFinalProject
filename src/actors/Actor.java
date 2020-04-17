@@ -126,21 +126,6 @@ public class Actor extends Sprite implements Attack{
 	
 	@Override
 	public void attack(Actor other) {
-//		if(!other.isAlive()&&!other.isNotDeaing())
-//		{
-//			state = IDLE;
-//			target = null;
-//			this.coolDownCounter = 0;
-//			return;
-//		}
-//		if(state == IDLE)
-//		{
-//			state = ATTACK;
-//			this.resetCoolDown();
-//			this.setCurrentIgm(this.get(1, 0));
-//		}
-//		if(state == ATTACK)
-//		{
 		if(coolDownCounter == this.coolDown) {
 			//the final frame of attack anime
 		this.setCurrentIgm(this.get(ATTACK, coolDown));
@@ -157,7 +142,6 @@ public class Actor extends Sprite implements Attack{
 			addCooldown();
 			this.setCurrentIgm(this.get(1, coolDownCounter));
 		}
-//		}
 	}
 	
 	public void deading()
@@ -166,39 +150,16 @@ public class Actor extends Sprite implements Attack{
 		coolDownCounter++;
 		if(coolDownCounter >= deadCoolDown-1)
 			this.state = DEAD;
-//		{
-//			this.setCurrentIgm(this.get(DEADING, coolDownCounter));
-//			coolDownCounter++;
-//		}
-//		else
-//		{
-//			this.setCurrentIgm(this.get(DEADING, coolDownCounter));
-//			state = DEAD;
-//		}
 	}
 	
 	public void idle()
 	{
-//		if(target!=null)
-//		{
 		this.setCurrentIgm(this.get(IDLE, coolDownCounter));
 		coolDownCounter++;
 		if(coolDownCounter >= idelCoolDown-1)
 		{
 			coolDownCounter = 0;
 		}
-//			coolDownCounter = 0;
-//		}
-//		if(coolDownCounter < idelCoolDown-1)
-//		{
-//			this.setCurrentIgm(this.get(IDLE, coolDownCounter));
-//			coolDownCounter++;
-//		}
-//		else
-//		{
-//			this.setCurrentIgm(this.get(IDLE, idelCoolDown));
-//			coolDownCounter = 0;
-//		}
 	}
 	
 	public void draw(Graphics g) {

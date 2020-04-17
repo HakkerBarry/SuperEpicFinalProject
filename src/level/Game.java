@@ -33,11 +33,14 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 	 * the main tick call the update of ever frame
 	 */
 	private Timer tick;
-	static BufferedImage scene;
+	private static BufferedImage scene;
 	Controller controller;
 	public Actor[][] defender;
 	public ArrayList<Actor> enemies;
 	public ArrayList<Arrow> arrows;
+	private static DefenderButton knightButton;
+	private static DefenderButton archerButton;
+	//A value control the difficulty of the game
 	private int Threshold;
 
 	// test area
@@ -74,7 +77,9 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 		arrows = new ArrayList<>();
 		Instance.getInstance().setDefenders(defender);
 		Instance.getInstance().setEnemies(enemies);
-
+		knightButton = new DefenderButton();
+		archerButton = new DefenderButton();
+		addMouseListener(this);
 		// test area--------------------
 		defender[1][0] = k1;
 		defender[1][1] = k2;
@@ -118,21 +123,23 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		JFrame mainFrame = new JFrame();
-		Game epic = new Game();
-		Instance.getInstance().setGame(epic);
-		mainFrame.add(epic);
-		mainFrame.pack();
-		mainFrame.setVisible(true);
+		
+				JFrame mainFrame = new JFrame();
+				mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				Game epic = new Game();
+				epic.add(archerButton);
+				Instance.getInstance().setGame(epic);
+				mainFrame.add(epic);
+				mainFrame.pack();
+				mainFrame.setVisible(true);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
-		controller.mouseClicked(e);
+		//controller.mouseClicked(e);
 		System.out.println("mouseClicked: x position is " + e.getX() + " y position is " + e.getY());
 	}
-
+	
 	public void updateDefender(Graphics g) {
 		for (int y = 0; y < 5; y++) {
 			for (int x = 0; x < 9; x++) {
@@ -208,7 +215,12 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		int x = e.getX();
+		int y = e.getY();
+		
+		int gridNum = Grid.getCellNum(new Point2D.Double(x, y));
+		
+		System.out.println(gridNum);
 
 	}
 
