@@ -103,6 +103,9 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 		// update and draw arrow
 		updateArrow(g);
 		updateSkeleton(g);
+		
+		//update and draw scoreboard
+		
 
 	}
 
