@@ -7,7 +7,7 @@ public class Archer extends Actor {
 
 	private int line;
 	public Archer(Double startingPosition,int line) {
-		super(startingPosition, Instance.getInstance().getActorBox(), Instance.getInstance().archer, 50, 13, 23, 7, 0, 20);
+		super(startingPosition, Instance.getInstance().getActorBox(), Instance.getInstance().archer, 50, 13, 23, 7, 0, 30);
 		this.line = line;
 	}
 	

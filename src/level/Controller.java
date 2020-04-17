@@ -58,9 +58,9 @@ public class Controller {
 		//Create archer
 		if(type.equals("archer"))
 		{
-			if(Instance.getInstance().getGame().getMoney() >= 500) {
+			if(Instance.getInstance().getGame().getMoney() >= 400) {
 				Instance.getInstance().getDefenders()[gridNum/9][gridNum%9] = new Archer(Grid.getCellPosition(gridNum%9, gridNum/9),gridNum/9);
-				Instance.getInstance().getGame().setMoney(-500);
+				Instance.getInstance().getGame().setMoney(-400);
 			}
 		}
 		System.out.println("mouseClicked: x position is " + e.getX() + " y position is "+ e.getY());

@@ -193,7 +193,7 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 		// remove dead Enemies
 		for (Actor dead : deadEnemies) {
 			enemies.remove(dead);
-			money += 10;
+			money += 50;
 		}
 	}
 

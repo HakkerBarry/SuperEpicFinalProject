@@ -28,7 +28,7 @@ public class DefenderButton extends JButton implements ActionListener{
 		}
 		if(type.equals("archer")) {
 			this.setIcon(new ImageIcon(Instance.getInstance().archer.get(0).get(0)));
-			this.setText("500");
+			this.setText("400");
 		}
 	}
 
