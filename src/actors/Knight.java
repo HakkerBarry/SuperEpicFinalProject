@@ -7,7 +7,7 @@ public class Knight extends Actor {
 	
 	
 	public Knight(Double startingPosition) {
-		super(startingPosition, Instance.getInstance().getActorBox(), Instance.getInstance().knight, 200, 8, 14, 14, 0, 10);
+		super(startingPosition, Instance.getInstance().getActorBox(), Instance.getInstance().knight, 400, 8, 14, 14, 0, 10);
 	}
 	
 	public void idle()

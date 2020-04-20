@@ -32,6 +32,7 @@ public class Arrow extends Sprite{
 				//cause damege
 				state = DEAD;
 				enemy.changeHealth(-attackDamage);
+				break;
 			}
 		}
 		//System.out.

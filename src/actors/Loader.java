@@ -225,4 +225,20 @@ public class Loader {
 		}
 		return null;
 	}
+	
+	public static BufferedImage loadGameOver()
+	{
+		BufferedImage GameOver;
+		try {
+			GameOver = ImageIO.read(new File("assets/Scenes/GameOver.png"));
+			return GameOver;
+		}
+		catch(IOException e)
+		{
+			System.out.println("GameOver not found");
+		}
+		return null;
+	}
 }
+
+

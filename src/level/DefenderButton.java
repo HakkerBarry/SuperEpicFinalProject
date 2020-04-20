@@ -13,18 +13,32 @@ public class DefenderButton extends JButton implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private String type;
 
-	public DefenderButton()
+	public DefenderButton(String type)
 	{
 		super();
 		//Instance.getInstance();
+		this.type = type;
 		addActionListener(this);
-		this.setIcon(new ImageIcon(Instance.knight.get(0).get(0)));
+		if(type.equals("knight")) {
+			this.setIcon(new ImageIcon(Instance.getInstance().knight.get(0).get(0)));
+			this.setText("100");
+		}
+		if(type.equals("archer")) {
+			this.setIcon(new ImageIcon(Instance.getInstance().archer.get(0).get(0)));
+			this.setText("400");
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("mouse Clicked called");
+		Instance.getInstance().getController().stateToSetting(type);
+	}
+
+	public String getType() {
+		return type;
 	}
 
 }

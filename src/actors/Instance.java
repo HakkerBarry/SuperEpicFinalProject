@@ -11,7 +11,8 @@ public class Instance {
 	
 	static Instance instance = null;
 	private Game game = null;
-	static BufferedImage scene;
+	public BufferedImage scene;
+	private BufferedImage gameOver;
 	private Point2D.Double standardHitBox = new Point2D.Double(100,115);
 	private Point2D.Double actorHitBox = new Point2D.Double(100,80);
 	public Actor[][] defenders;
@@ -19,10 +20,10 @@ public class Instance {
 	private static Controller controller;
 	
 	//the animation for each king of actor
-	private static ArrayList<ArrayList<BufferedImage>> arrow;
-	public static ArrayList<ArrayList<BufferedImage>> knight;
+	private ArrayList<ArrayList<BufferedImage>> arrow;
+	public ArrayList<ArrayList<BufferedImage>> knight;
 	public static ArrayList<ArrayList<BufferedImage>> skeleton;
-	public static ArrayList<ArrayList<BufferedImage>> archer;
+	public ArrayList<ArrayList<BufferedImage>> archer;
 	
 	private Instance()
 	{
@@ -36,6 +37,7 @@ public class Instance {
 		archer = Loader.loadArcher();
 		scene = Loader.loadScene();
 		arrow = Loader.loadArrow();
+		gameOver = Loader.loadGameOver();
 	}
 	
 	public void setGame(Game game)
@@ -101,7 +103,7 @@ public class Instance {
 		}
 	}
 
-	public static Controller getController() {
+	public Controller getController() {
 		return controller;
 	}
 
@@ -109,6 +111,10 @@ public class Instance {
 
 	public static void setController(Controller controller) {
 		Instance.controller = controller;
+	}
+
+	public BufferedImage getGameOver() {
+		return gameOver;
 	}
 
 }

@@ -12,15 +12,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import actors.Actor;
-import actors.Archer;
 import actors.Arrow;
 import actors.Grid;
 import actors.Instance;
-import actors.Knight;
 import actors.Skeleton;
 
 /**
@@ -38,15 +37,15 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 	public Actor[][] defender;
 	public ArrayList<Actor> enemies;
 	public ArrayList<Arrow> arrows;
+	
 	private static DefenderButton knightButton;
 	private static DefenderButton archerButton;
+	
+	//money; only be add when enemy be killed
+	private int money;
+	private JLabel moneyLabel;
 	//A value control the difficulty of the game
 	private int Threshold;
-
-	// test area
-	private Knight k1,k2,k3,k4,k5;
-	private Archer a1,a2,a3,a4,a5;
-	//----------------------
 
 	/**
 	 * Constructor
@@ -55,44 +54,28 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 		scene = Instance.getInstance().getScene();
 		setPreferredSize(new Dimension(1440, 900));
 		controller = new Controller();
+		Instance.setController(controller);
 		tick = new Timer(50, this);
 		Threshold = 9990;
-
-		// test area------------------------
-		k1 = new Knight(Grid.getCellPosition(1, 0));
-		k2 = new Knight(Grid.getCellPosition(1, 1));
-		k3 = new Knight(Grid.getCellPosition(1, 2));
-		k4 = new Knight(Grid.getCellPosition(1, 3));
-		k5 = new Knight(Grid.getCellPosition(1, 4));
 		
-		a1 = new Archer(Grid.getCellPosition(0, 0),0);
-		a2 = new Archer(Grid.getCellPosition(0, 1),1);
-		a3 = new Archer(Grid.getCellPosition(0, 2),2);
-		a4 = new Archer(Grid.getCellPosition(0, 3),3);
-		a5 = new Archer(Grid.getCellPosition(0, 4),4);
-		// ---------------------------------
-
+		//initialize money and label
+		money = 3000;
+		//moneyLabel.setIcon(icon);
+		moneyLabel = new JLabel("money : " + money);
+		
 		defender = new Actor[5][9];
 		enemies = new ArrayList<>();
 		arrows = new ArrayList<>();
 		Instance.getInstance().setDefenders(defender);
 		Instance.getInstance().setEnemies(enemies);
-		knightButton = new DefenderButton();
-		archerButton = new DefenderButton();
+		knightButton = new DefenderButton("knight");
+		archerButton = new DefenderButton("archer");
 		addMouseListener(this);
-		// test area--------------------
-		defender[1][0] = k1;
-		defender[1][1] = k2;
-		defender[1][2] = k3;
-		defender[1][3] = k4;
-		defender[1][4] = k5;
 		
-		defender[0][0] = a1;
-		defender[0][1] = a2;
-		defender[0][2] = a3;
-		defender[0][3] = a4;
-		defender[0][4] = a5;
-		// ---------------------------------
+		add(archerButton);
+		add(knightButton);
+		add(moneyLabel);
+		
 		tick.start();
 	}
 
@@ -100,6 +83,11 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 	protected void paintComponent(Graphics g) {
 		// Loop each reference in array draw from far to close defender
 
+		if(!tick.isRunning())
+		{
+			g.drawImage(Instance.getInstance().getGameOver(), 0,0,null);
+			return;
+		}
 		g.drawImage(scene, 0, 0, null);
 
 		// update and draw defender
@@ -114,6 +102,7 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		makeGameHarder();
+		moneyLabel.setText("money : " + money);
 		repaint();
 	}
 
@@ -127,7 +116,7 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 				JFrame mainFrame = new JFrame();
 				mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				Game epic = new Game();
-				epic.add(archerButton);
+				//epic.setLayout();
 				Instance.getInstance().setGame(epic);
 				mainFrame.add(epic);
 				mainFrame.pack();
@@ -136,8 +125,7 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		//controller.mouseClicked(e);
-		System.out.println("mouseClicked: x position is " + e.getX() + " y position is " + e.getY());
+		controller.mouseClicked(e);
 	}
 	
 	public void updateDefender(Graphics g) {
@@ -199,13 +187,21 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 			}
 			enemy.update();
 			enemy.draw(g);
+			if(enemy.getPosition().getX() < 200)
+				this.endGame();
 		}
 		// remove dead Enemies
 		for (Actor dead : deadEnemies) {
 			enemies.remove(dead);
+			money += 100;
 		}
 	}
 
+	public void endGame()
+	{
+		tick.stop();
+		repaint();
+	}
 	/**
 	 * decrease the threshold will make game harder
 	 */
@@ -213,15 +209,20 @@ public class Game extends JPanel implements ActionListener, MouseListener {
 	{
 		Threshold-- ;
 	}
+	
+	public int getMoney()
+	{
+		return money;
+	}
+	
+	public void setMoney(int moneyChange)
+	{
+		this.money += moneyChange;
+	}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		
-		int gridNum = Grid.getCellNum(new Point2D.Double(x, y));
-		
-		System.out.println(gridNum);
-
+		controller.mousePressed(e);
 	}
 
 	@Override

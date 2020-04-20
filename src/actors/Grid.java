@@ -23,10 +23,9 @@ public class Grid {
 	}
 	
 	public static int getCellNum(Point2D.Double position)
-	{			//com * n
-		return (int)((position.getY()-startPoint.getY())/cellDimension.getY()) 
-				//add the colNum
-				+ (int)((position.getX()-startPoint.getX())/cellDimension.getX());
+	{
+		return (int)((position.getY()-startPoint.getY())/cellDimension.getY())*9
+		+(int)((position.getX()-startPoint.getX())/cellDimension.getX());
 	}
 	
 	public static Point2D.Double getCellPosition(int x, int y)
